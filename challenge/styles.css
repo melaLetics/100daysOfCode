@@ -1,0 +1,87 @@
+body {
+    background-color: rgb(219, 241, 245);
+    font-family: 'Oswald', sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    width: 30rem;
+    margin: 3rem auto; 
+    background-color: rgb(242, 247, 248);
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgb(0,0,0,0.2);
+}
+
+label {
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+input, textarea, select {
+    width: 100%;
+    display: block;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    font: inherit;
+    border: 1px solid rgb(184, 184, 184);
+    padding: 0.25rem;
+    color: rgb(61, 58, 58);
+}
+  
+textarea {
+    resize: vertical;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    font: inherit;
+    margin-left: 10px;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+}
+
+#btn-submit {
+    background-color: rgb(41, 50, 104);
+    color: white;
+    border: 1px solid rgb(32, 5, 63);
+  }
+  
+#btn-submit:hover {
+    background-color: rgb(126, 171, 238);
+    border-color: rgb(41, 50, 104);
+}
+
+#btn-reset {
+    border: 1px solid rgb(32, 5, 63);
+}
+
+#btn-reset:hover {
+    background-color: rgb(240, 169, 169);
+    border-color: rgb(41, 50, 104);
+}
+  
+.buttons {
+    display: flex;
+    justify-content: end;
+}
+
+
+.form-control {
+   display: flex;
+}
+
+.form-control input {
+    width: auto;
+    margin-right: 0.5rem;
+}
