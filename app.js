@@ -1,27 +1,3 @@
-let age = 40;
-let userName = 'Mela';
-let hobbies = ['Sports', 'Reading', 'Programming'];
-let job = {
-  title: 'Software Developer', 
-  place: 'Hamburg', 
-  salary: 60000
-};
+//console.dir(document)
 
-let adultYears;
-
-function calculateAdultYears(userAge) {
-  return userAge-18;
-}
-
-adultYears = calculateAdultYears(age);
-//alert(adultYears);
-console.log(adultYears);
-
-let person= {
-  name: 'mela',
-  greet() {
-    console.log('Hallo!');
-  }
-}
-
-person.greet();
+document.body.children[1].children[0].href="https:\\www.google.de";
