@@ -66,3 +66,11 @@ form {
   #remaining-chars.warning {
     color:rgb(211, 109, 26);
   }
+
+input.error {
+  background-color: rgb(238, 96, 71);
+}
+
+#remaining-chars.error {
+  color: rgb(211, 69, 26);
+}
