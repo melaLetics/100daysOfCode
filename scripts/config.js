@@ -9,7 +9,7 @@ function closePlayerConfig() {
     backDrop.style.display = 'none';
     form.firstElementChild.classList.remove('error');
     errorsOutput.textContent = '';
-    form.firstElementChild.lastElementChild.value = '';
+    form.firstElementChild.children[1].value = '';
 }
 
 function savePlayerConfig(event) {

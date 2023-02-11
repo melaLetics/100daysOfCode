@@ -6,6 +6,8 @@ const gameData = [
 
 let editedPlayer = 0;
 let activePlayer = 0;
+let currentRound = 1;
+let gameIsOver = false;
 const players = [
     {
         name: '',
@@ -23,7 +25,9 @@ const form = document.querySelector('form');
 const errorsOutput = document.getElementById('config-errors');
 const gameArea = document.getElementById('active-game');
 const gameFieldElements = document.querySelectorAll('#game-board li');
+const gameBoard = document.querySelector('#game-board');
 const activePlayerName = document.getElementById('active-player-name');
+const gameOver = document.getElementById('game-over')
 
 const editPlayer1Btn = document.getElementById('edit-player-1-btn');
 const editPlayer2Btn = document.getElementById('edit-player-2-btn');
