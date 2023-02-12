@@ -1,0 +1,22 @@
+{
+  "name": "coding-challenge",
+  "version": "1.0.0",
+  "description": "Getting started with Node & Express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melaLetics/100daysOfCode.git"
+  },
+  "author": "mela Letics",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/melaLetics/100daysOfCode/issues"
+  },
+  "homepage": "https://github.com/melaLetics/100daysOfCode#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
