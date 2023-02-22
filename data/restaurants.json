@@ -1,1 +1,18 @@
-[{"name":"My Incredible No 1","address":"Incredible Street 1, Buxthude, Germany","cuisine":"Italian","website":"https://incredibleNo1.com","description":"it's incredible!"},{"name":"Amazing Fusine","address":"Typical Road 5, Buxtehude, Germany","cuisine":"german","website":"https://amazing-fusion.com","description":"It's also amazing."}]
+[
+    {
+        "id": "r1",
+        "name": "My Incredible No 1",
+        "address": "Incredible Street 1, Buxthude, Germany",
+        "cuisine": "Italian",
+        "website": "https://incredibleNo1.com",
+        "description": "it's incredible!"
+    },
+    {
+        "id": "r2",
+        "name": "Amazing Fusine",
+        "address": "Typical Road 5, Buxtehude, Germany",
+        "cuisine": "german",
+        "website": "https://amazing-fusion.com",
+        "description": "It's also amazing."
+    }
+]

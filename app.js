@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const uuid = require('uuid');
 
 const express = require('express');
 const app = express();
@@ -14,14 +15,22 @@ app.get('/', function(request, response) {
 })
 
 app.get('/restaurants', function(request, response){
-    const filePath = path.join(__dirname, 'data', 'restaurants.json');
-    const fileData = fs.readFileSync(filePath);
-    const storedRestaurants = JSON.parse(fileData);
-    
+    const storedRestaurants = getStoredRestaurants();
     response.render('restaurants', {
         numberOfRestaurants: storedRestaurants.length ,
         restaurants: storedRestaurants
     });
+});
+
+app.get('/restaurants/:id', function(request, response){
+    const id = request.params.id;
+    const storedRestaurants = getStoredRestaurants();
+    for (const restaurant of storedRestaurants) {
+        if (restaurant.id === id) {
+            return response.render('restaurant-detail', { item: restaurant });
+        }
+    }
+    response.status(404).render('404');
 });
 
 app.get('/recommend', function(request, response){
@@ -29,11 +38,11 @@ app.get('/recommend', function(request, response){
 });
 
 app.post('/recommend', function(request, response){
-    const filePath = path.join(__dirname, 'data', 'restaurants.json');
-    const fileData = fs.readFileSync(filePath);
-    const storedRestaurants = JSON.parse(fileData);
-    storedRestaurants.push(request.body);
-    fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
+    const restaurant = request.body;
+    restaurant.id = uuid.v4();
+    const storedRestaurants = getStoredRestaurants();
+    storedRestaurants.push(restaurant);
+    storeRestaurants(storedRestaurants);
 
     response.redirect('/confirm');
 });
@@ -45,5 +54,13 @@ app.get('/about', function(request, response){
 app.get('/confirm', function(request, response){
     response.render('confirm');
 });
+
+app.use(function(request, response){
+    response.status(404).render('404');
+});
+
+app.use(function(error, request, response, next){
+    response.status(500).render('500');
+})
 
 app.listen(3000);
