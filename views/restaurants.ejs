@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/shared.css" />
-    <link rel="stylesheet" href="styles/recommend.css" />
+    <link rel="stylesheet" href="styles/restaurants.css" />
     <script src="scripts/responsive.js" defer></script>
   </head>
   <body>
@@ -48,41 +48,32 @@
       </nav>
     </aside>
     <main>
-      <h1>Share your favorite restaurant!</h1>
-      <form>
-        <div class="form-control">
-          <label for="name">Restaurant name</label>
-          <input type="text" id="name" name="name" required />
-        </div>
-        <div class="form-control">
-          <label for="address">Address</label>
-          <input type="text" id="address" name="address" required />
-        </div>
-        <div class="form-control">
-          <label for="cuisine">Type of cuisine</label>
-          <input
-            type="text"
-            id="cuisine"
-            name="cuisine"
-            placeholder="e.g. Mexican"
-            required
-          />
-        </div>
-        <div class="form-control">
-          <label for="website">Restaurant website</label>
-          <input type="url" id="website" name="website" />
-        </div>
-        <div class="form-control">
-          <label for="description">Why do you recommend it?</label>
-          <textarea
-            name="description"
-            id="description"
-            rows="5"
-            required
-          ></textarea>
-        </div>
-        <button>Share Restaurant</button>
-      </form>
+      <h1>Recommended restaurants</h1>
+      <% if (numberOfRestaurants === 0) { %>
+        <p>Unfortunately, we have no recommendations yet - maybe start recommending some?</p>
+      <% } else { %>  
+        <p>Find your next favorite restaurants with help of our other users!</p>
+        <p>We found <%= numberOfRestaurants %> restaurants.</p>
+        <ul id="restaurants-list">
+          <% for (const restaurant of restaurants) { %>
+          <li class="restaurant-item">
+            <article>
+              <h2><%= restaurant.name %></h2>
+              <div class="restaurant-meta">
+                <p><%= restaurant.cuisine %></p>
+                <p><%= restaurant.address %></p>
+              </div>
+              <p>
+                <%= restaurant.description %>
+              </p>
+              <div class="restaurant-actions">
+                <a href="<%= restaurant.website %>">View Website</a>
+              </div>
+            </article>
+          </li>
+          <% } %>
+        </ul>
+      <% } %>  
     </main>
   </body>
 </html>
