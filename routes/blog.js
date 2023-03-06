@@ -12,7 +12,7 @@ router.get('/posts', async function(request, response){
 });
 
 router.get('/posts/:id', async function(request, response){
-    const query = `select title, summary, body, date, 
+    const query = `select post.id, title, summary, body, date, 
     author.name as author_name, author.email as author_email 
     from post inner join author on post.author_id = author.id 
     where post.id = ?`;
@@ -31,7 +31,7 @@ router.get('/posts/:id', async function(request, response){
         }),
     };
 
-    response.render('post-detail', { item: postData });
+    response.render('post-detail', { post: postData, comments: [] });
 });
 
 router.post('/posts', async function(request, response){
@@ -70,6 +70,19 @@ router.post('/posts/:id/delete', async function(request, response){
     const query = `delete from post where id = ?`;
     await db.query(query, [request.params.id]);
     response.redirect('/posts');
+});
+
+router.get('/posts/:id/comments', async function(request, response) {
+    const query = `select * from comment where post_id = ?`;
+    const [comments] = await db.query(query, [request.params.id]);
+    response.json(comments);
+});
+
+router.post('/posts/:id/comments', async function(request, response) {
+    const newComment = [request.params.id, request.body.title, request.body.text];
+    console.log(newComment);
+    await db.query('INSERT INTO comment (post_id, title, text) values (?)', [newComment]);
+    response.json({message: 'Comment successfully added.'});
 });
 
 module.exports = router;
