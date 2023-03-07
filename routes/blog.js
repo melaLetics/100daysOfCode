@@ -82,7 +82,8 @@ router.post('/posts/:id/comments', async function(request, response) {
     const newComment = [request.params.id, request.body.title, request.body.text];
     console.log(newComment);
     await db.query('INSERT INTO comment (post_id, title, text) values (?)', [newComment]);
-    response.json({message: 'Comment successfully added.'});
+    //response.json({message: 'Comment successfully added.'});
+    response.status(500).json({message: 'Error!'});
 });
 
 module.exports = router;
