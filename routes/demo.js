@@ -1,7 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const randomString = require('randomstring');
 
 const db = require('../data/database');
+
+async function validateCookie(cookie) {
+  const response = await db.query('select * from user where cookie = ? limit 1', cookie);
+  return response[0][0] !== undefined;
+}
 
 const router = express.Router();
 
@@ -10,6 +16,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/signup', function (req, res) {
+  console.log(req.headers);
   res.render('signup');
 });
 
@@ -67,15 +74,24 @@ router.post('/login', async function (req, res) {
     return res.redirect('/login');
   }
 
+  const cookie = randomString.generate(40);
+  await db.query(`update user set cookie='${cookie}' where email=?`, existingUser.email);
   console.log('User successfully authenticated');
+  res.cookie('cookie', cookie);
   res.redirect('/admin');
-
 });
 
-router.get('/admin', function (req, res) {
+router.get('/admin', async function (req, res) {
+  if (!await validateCookie(req.cookies['cookie'])){
+    return res.status(401).render('401');
+  }
   res.render('admin');
 });
 
-router.post('/logout', function (req, res) {});
+router.post('/logout', function (req, res) {
+  db.query(`update user set cookie=NULL where cookie=?`,req.cookies['cookie'] );
+  res.cookie('cookie', null);
+  res.redirect('/');
+});
 
 module.exports = router;
