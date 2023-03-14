@@ -8,10 +8,6 @@ function getHome(req, res) {
 }
 
 async function getAdmin(req, res) {
-    if (!res.locals.isAuth) {
-      return res.status(401).render('401');
-    }
-  
     const posts = await Post.fetchAll();
     sessionErrorData = validationSession.getSessionErrorData(req, {
         title: '',
@@ -45,23 +41,30 @@ await newPost.save();
 res.redirect('/admin');
 }  
 
-async function getSinglePost(req, res) {
-const post = new Post(null, null, req.params.id);
-await post.fetchById();
+async function getSinglePost(req, res, next) {
+    let post;
+    try {
+        post = new Post(null, null, req.params.id);
+    } catch (error) {
+        next(error);
+        return;
+    }
 
-if (!post.title || !post.content) {
-    return res.render('404'); // 404.ejs is missing at this point - it will be added later!
-}
+    await post.fetchById();
 
-sessionErrorData = validationSession.getSessionErrorData(req, {
-    title: post.title,
-    content: post.content
-});
+    if (!post.title || !post.content) {
+        return res.render('404'); 
+    }
 
-res.render('single-post', {
-    post: post,
-    inputData: sessionInputData
-});
+    sessionErrorData = validationSession.getSessionErrorData(req, {
+        title: post.title,
+        content: post.content
+    });
+
+    res.render('single-post', {
+        post: post,
+        inputData: sessionInputData
+    });
 }  
 
 async function updatePost(req, res) {

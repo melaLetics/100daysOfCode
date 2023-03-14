@@ -29,8 +29,8 @@ app.use(csrf());
 app.use(csrfTokenMiddleware);
 app.use(authMiddleware);
 
-app.use(blogRoutes);
 app.use(authRoutes);
+app.use(blogRoutes);
 
 app.use(function(error, req, res, next) {
   res.render('500');
