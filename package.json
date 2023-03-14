@@ -1,0 +1,27 @@
+{
+  "name": "online-shop",
+  "version": "1.0.0",
+  "description": "Milestone project: a complete online shop ",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melaLetics/100daysOfCode.git"
+  },
+  "keywords": [],
+  "author": "mela Letics",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/melaLetics/100daysOfCode/issues"
+  },
+  "homepage": "https://github.com/melaLetics/100daysOfCode#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
