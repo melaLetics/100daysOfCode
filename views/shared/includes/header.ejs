@@ -3,5 +3,15 @@
         <a href="/">WDE</a>
     </div>
     <nav>
+        <ul>
+            <% if (locals.isAuth) { %>
+            <li>
+                <form action="/logout" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+                    <button>Logout</button>
+                </form>
+            </li>
+            <% } %>
+        </ul>
     </nav>
 </header>
