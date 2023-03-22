@@ -14,7 +14,7 @@ function getNewProduct(req, res) {
     res.render('admin/products/new-product');
 }
 
-async function createNewProduct(req, res){
+async function createNewProduct(req, res, next){
     const product = new Product({
         ...req.body,
         image: req.file.filename,
@@ -39,8 +39,25 @@ async function getUpdateProduct(req, res){
     }
 }
 
-function updateProduct(){}
+async function updateProduct(req, res, next){
+    const product = new Product({
+        ...req.body,
+        _id: req.params.id
+    });
 
+    if (req.file){
+        product.replaceImage(req.file.filename);
+    }
+
+    try {
+        await product.save();
+    } catch(error){
+        next(error);
+        return;
+    }
+    
+    res.redirect('/admin/products');
+}
 
 module.exports = {
     getProducts: getProducts,
