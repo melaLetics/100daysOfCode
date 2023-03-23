@@ -80,6 +80,13 @@ class Product {
     this.updateImageData();
   }
 
+  remove() {
+    const prodId = new mongoDb.ObjectId(this.id)
+    return db.getDb().collection('product').deleteOne({
+      _id: prodId
+    });
+  }
+
 }
 
 module.exports = Product;
