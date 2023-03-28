@@ -1,13 +1,17 @@
 const cartItemUpdateForm = document.querySelectorAll('.cart-item-management');
+const cartTotalPriceElement = document.getElementById('cart-total-price');
+const cartBadge = document.querySelector('.nav-items .badge');
 
 async function updateCartItem(event){
   event.preventDefault();
 
-  const productId = form.dataSet.productid;
-  const csrfToken = form.dataSet.crsf;
+  const form = event.target;
+
+  const productId = form.dataset.productid;
+  const csrfToken = form.dataset.csrf;
   const quantity = form.firstElementChild.value;
 
-  let response
+  let response;
   try {
     response = await fetch('/cart/items', {
       method: 'PATCH',
@@ -31,6 +35,16 @@ async function updateCartItem(event){
   }
 
   const responseData = await response.json();
+
+  if (responseData.updatedCartData.updatedItemPrice === 0) {
+    form.parentElement.parentElement.remove(); 
+  } else {
+    const cartItemTotalPriceElemet = form.parentElement.querySelector('.cart-item-price');
+    cartItemTotalPriceElemet.textContent = responseData.updatedCartData.updatedItemPrice.toFixed(2);
+  }
+
+  cartTotalPriceElement.textContent = responseData.updatedCartData.newTotalPrice.toFixed(2); 
+  cartBadge.textContent = responseData.updatedCartData.newTotalQuantity;
 }
 
 for (const formElement of cartItemUpdateForm) {
