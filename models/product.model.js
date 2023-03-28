@@ -44,6 +44,22 @@ class Product {
     });
   }
 
+  static async findMultiple(ids) {
+    const productIds = ids.map(function(id) {
+      return new mongoDb.ObjectId(id);
+    })
+    
+    const products = await db
+      .getDb()
+      .collection('product')
+      .find({ _id: { $in: productIds } })
+      .toArray();
+
+    return products.map(function (productDocument) {
+      return new Product(productDocument);
+    });
+  }
+
   async save() {
     const productData = {
       title: this.title,

@@ -8,7 +8,6 @@ async function addOrder(req, res, next){
     try{
         userDocument = await User.findById(res.locals.uid);
         const order = new Order(cart, userDocument);
-        console.log(order);
         await order.save();
     } catch(error) {
         next(error);
@@ -20,9 +19,16 @@ async function addOrder(req, res, next){
     res.redirect('/orders');
 }
 
-function getOrders(req, res) {
-    res.render('customer/order/all-orders');
-}
+async function getOrders(req, res, next) {
+    try {
+      const orders = await Order.findAllForUser(res.locals.uid);
+      res.render('customer/order/all-orders', {
+        orders: orders,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
 module.exports = {
     addOrder: addOrder,
